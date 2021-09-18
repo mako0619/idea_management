@@ -33,9 +33,7 @@ module IdeaManagement
     # config.eager_load_paths << Rails.root.join("extras")
 
     config.generators do |g|
-      g.test_framework :rspec, fixture: false
-      g.controller_specs false
-      g.routing_specs false
+      g.test_framework false
     end
 
     # Only loads a smaller set of middleware suitable for API only apps.
