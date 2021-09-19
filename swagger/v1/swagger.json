@@ -1,11 +1,63 @@
 {
-  "openapi": "3.0.1",
+  "swagger": "2.0",
   "info": {
     "title": "API V1",
     "version": "v1"
   },
   "paths": {
     "/ideas": {
+      "get": {
+        "summary": "Find Ideas",
+        "tags": [
+          "IdeaApi"
+        ],
+        "description": "アイデア一覧情報取得",
+        "operationId": "FindIdeas",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "category_name",
+            "in": "query",
+            "type": "string",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "schema": {
+              "type": "object",
+              "title": "Success Find Ideas",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "category": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "integer"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "not_found"
+          }
+        }
+      },
       "post": {
         "summary": "Create Idea",
         "tags": [
@@ -13,8 +65,36 @@
         ],
         "description": "アイデア登録",
         "operationId": "CreateIdea",
+        "consumes": [
+          "multipart/form-data"
+        ],
         "parameters": [
-
+          {
+            "name": "category_name",
+            "in": "formData"
+          },
+          {
+            "name": "body",
+            "in": "formData"
+          },
+          {
+            "name": "form",
+            "in": "formData",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "category_name": {
+                  "type": "string"
+                },
+                "body": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "category_name"
+              ]
+            }
+          }
         ],
         "responses": {
           "201": {
@@ -22,26 +102,6 @@
           },
           "422": {
             "description": "unprocessable_entity"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "category_name": {
-                    "type": "string"
-                  },
-                  "body": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "category_name"
-                ]
-              }
-            }
           }
         }
       }
