@@ -22,7 +22,7 @@ RSpec.describe 'Ideas API', type: :request do
                 id: { type: :integer },
                 category: { type: :string },
                 body: { type: :string },
-                created_at: { type: :string }
+                created_at: { type: :integer }
               }
             }
           }
