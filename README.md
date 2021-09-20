@@ -1,24 +1,49 @@
-# README
+# アイデア管理API
+カテゴリーに紐付けたアイデアの登録と、登録したアイデアの取得が可能
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## APIドキュメント
+Swaggerを使用（rswagを利用して作成）
 
-Things you may want to cover:
+http://localhost:3000/api-docs
 
-* Ruby version
+## エンドポイント
+- アイデア登録
+GET  /ideas
+- アイデア取得
+POST /ideas
 
-* System dependencies
+## リクエスト
+- アイデア登録
+category_name(カテゴリー名):string null: false
+body(本文):string null: false
 
-* Configuration
+- アイデア取得
+category_name(カテゴリー名):string
 
-* Database creation
+## 処理概要
+- アイデア登録
 
-* Database initialization
+リクエストのcategory_nameがcategoriesテーブルのnameに存在する場合、categoryのidをcategory_idとして、ideasテーブルに登録
 
-* How to run the test suite
+リクエストのcategory_nameがcategoriesテーブルのnameに存在しない場合、新たなcategoryとしてcategoriesテーブルに登録し、ideasテーブルに登録
 
-* Services (job queues, cache servers, search engines, etc.)
+成功時　　HTTPステータスコード201を返す
 
-* Deployment instructions
+失敗時　　HTTPステータスコード422を返す
 
-* ...
+- アイデア取得
+
+category_nameが指定されている場合は該当するcategoryのideasの一覧を返却
+
+category_nameが指定されていない場合は全てのideasを返却
+
+登録されていないカテゴリーのリクエストの場合はステータスコード404を返す
+
+
+# 使用技術
+- Ruby 2.7.4
+- Ruby on Rails 6.1.4
+- MySQL
+- RSpec
+- rswag
+- RuboCop
