@@ -8,9 +8,9 @@ http://localhost:3000/api-docs
 
 ## エンドポイント
 - アイデア登録
-GET  /ideas
-- アイデア取得
 POST /ideas
+- アイデア取得
+GET  /ideas
 
 ## リクエスト
 - アイデア登録
